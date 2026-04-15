@@ -6,13 +6,15 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def home():
     cevap = ""
-    mesaj = ""
 
     if request.method == "POST":
         mesaj = request.form.get("message")
         cevap = get_response(mesaj)
 
-    return render_template("index.html", cevap=cevap, mesaj=mesaj)
+    return render_template("index.html", cevap=cevap)
+
+# 🔥 Render için gerekli kısım
+import os
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
